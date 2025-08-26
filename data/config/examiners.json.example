@@ -1,0 +1,12 @@
+{
+  "examiners": [
+    {
+      "name": "Max Mustermann",
+      "variants": ["M. Mustermann", "Mustermann, Max"]
+    },
+    {
+      "name": "Erika Musterfrau",
+      "variants": ["E. Musterfrau", "Musterfrau, Erika"]
+    }
+  ]
+}
