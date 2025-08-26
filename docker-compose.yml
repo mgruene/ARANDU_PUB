@@ -1,0 +1,52 @@
+services:
+  chroma:
+    build: ./chroma
+    container_name: chroma
+    env_file: [.env]
+    environment:
+      - IS_PERSISTENT=true
+      - ANONYMIZED_TELEMETRY=false
+      - CHROMA_SERVER_HOST=${CHROMA_SERVER_HOST}
+      - CHROMA_SERVER_PORT=${CHROMA_SERVER_PORT}
+    volumes:
+      - ${CHROMA_DATA_DIR}:/chroma/chroma
+    ports:
+      - "127.0.0.1:${CHROMA_SERVER_PORT}:${CHROMA_SERVER_PORT}"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:${CHROMA_SERVER_PORT}/api/v2/heartbeat"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+    restart: unless-stopped
+
+  app_server:
+    build:
+      context: ./app_server
+    container_name: arandu-app_server
+    working_dir: /code
+    # working_dir: /app
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    environment:
+      PYTHONPATH: "/code"
+      ARANDU_CFG_DIR: "data/config"
+      HF_HUB_DISABLE_TELEMETRY: "1"
+      TOKENIZERS_PARALLELISM: "false"
+      OTEL_SDK_DISABLED: "true"
+      PIP_DISABLE_PIP_VERSION_CHECK: "1"
+      STREAMLIT_BROWSER_GATHERUSAGESTATS: "false"
+    volumes:
+      - ./app_server:/code
+      - ./data:/data
+    ports:
+      - "127.0.0.1:8501:8501"
+    command: >
+      bash -lc "streamlit run app/ui/App.py
+      --server.port=8501
+      --server.address=0.0.0.0
+      --browser.gatherUsageStats=false"
+    depends_on:
+      chroma:
+        condition: service_healthy
+    restart: unless-stopped

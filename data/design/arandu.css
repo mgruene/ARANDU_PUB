@@ -1,0 +1,21 @@
+/* Allgmeine Stile für die Streamlit-Anwendung */
+body {
+    background-color: #E5D3A6; /* Hintergrundfarbe in Beige */
+    color: #2C5768; /* Textfarbe im Blau-Grün-Ton */
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; /* Einfache, serifenlose Schriftart */
+}
+
+/* Stil für Überschriften */
+h1, h2, h3, h4, h5, h6 {
+    color: #A34336; /* Überschriftenfarbe im Braun-Ocker-Ton */
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+
+/* Beispiel für weitere Elemente, die Sie anpassen möchten */
+/*
+ . s*tButton>button {
+ background-color: #A34336;
+ color: #E5D3A6;
+ border-radius: 5px;
+ }
+ */

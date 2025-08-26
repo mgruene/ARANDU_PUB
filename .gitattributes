@@ -1,0 +1,22 @@
+# Textdateien: konsistente Zeilenenden
+* text=auto eol=lf
+
+# Python & JSON sind Text
+*.py  text
+*.json text
+*.md  text
+*.yml text
+*.yaml text
+*.txt text
+*.css text
+
+# Binärdateien (nicht diffen)
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary
+*.bin binary
+*.sqlite* binary
+*.parquet binary
+*.pkl binary

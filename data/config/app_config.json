@@ -1,0 +1,24 @@
+{
+  "paths": {
+    "uploads_dir": "data/uploads",
+    "logs_dir": "data/logs",
+    "app_state_dir": "data/app_state",
+    "config_dir": "data/config",
+    "design_dir": "data/design"
+  },
+  "ollama": {
+    "base_url": "http://host.docker.internal:11434"
+  },
+  "chroma": {
+    "mode": "http",
+    "server_url": "http://chroma:8000"
+  },
+  "ui_defaults": {
+    "collection_default": "bachelor",
+    "embedding_alias_default": "jina-de",
+    "top_k_default": 5
+  },
+  "feature_flags": {
+    "llm_fallback_for_metadata": true
+  }
+}

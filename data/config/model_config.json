@@ -1,0 +1,28 @@
+{
+  "embeddings": [
+    { "alias": "jina-de",    "provider": "ollama", "model": "jina/jina-embeddings-v2-base-de:latest", "dim": 768,  "normalize": true },
+    { "alias": "nomic",      "provider": "ollama", "model": "nomic-embed-text:latest",                "dim": 768,  "normalize": true },
+    { "alias": "mxbai-large","provider": "ollama", "model": "mxbai-embed-large:latest",               "dim": 1024, "normalize": true }
+  ],
+  "llms": [
+    { "alias": "llama3-instruct",      "provider": "ollama", "model": "llama3:instruct",      "params": { "temperature": 0.1, "num_ctx": 8192 } },
+    { "alias": "qwen2.5-7b-instruct",  "provider": "ollama", "model": "qwen2.5:7b-instruct",  "params": { "temperature": 0.1, "num_ctx": 8192 } }
+  ],
+  "retrieval": {
+    "default_collection": "bachelor",
+    "top_k_default": 5,
+    "max_context_chars": 12000,
+    "embedding_alias_default": "jina-de",
+
+    "child_chunk_size": 1200,
+    "child_chunk_overlap": 200,
+
+    "parent_group_size": 3,
+    "parent_group_overlap": 1,
+
+    "max_chars_per_embedding": 2000,
+    "embedding_agg": "mean",
+
+    "embedding_alias_fallbacks": ["nomic", "mxbai-large"]
+  }
+}
