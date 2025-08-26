@@ -1,5 +1,9 @@
 # Willkommen
 
+![Latest tag](https://img.shields.io/github/v/tag/mgruene/ARANDU_PUB?label=latest%20tag)
+![Releases](https://img.shields.io/github/v/release/mgruene/ARANDU_PUB?include_prereleases)
+
+
 ##  Zum Projekt ARANDU
 Diese Projekt versucht, einen Prototypen einer RAG-Anwendung zu bauen, die Prüferinnen und Prüfer bei der Bewertung wissenschaftlicher Arbeiten unterstützt.
 
@@ -42,3 +46,9 @@ Stoppen:
 ``` bash
 docker-compose down
 ```
+
+## 📦 Versionsgeschichte
+
+<!--VERSIONS:START-->
+<!-- Wird automatisch von GitHub Actions befüllt. Nicht manuell bearbeiten. -->
+<!--VERSIONS:END-->
