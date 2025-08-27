@@ -50,4 +50,4 @@ docker-compose down
 ## 📦 Versionsgeschichte
 
 <!--VERSIONS:START-->
-* Merge pull request #1 from mgruene/codex/create-github-actions-workflow-for-update-readme (e18ca77)<!--VERSIONS:END-->
+* sync mit online-change an README.md (d81bc91)* Merge pull request #1 from mgruene/codex/create-github-actions-workflow-for-update-readme (e18ca77)<!--VERSIONS:END-->
