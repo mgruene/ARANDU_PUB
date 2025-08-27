@@ -50,5 +50,4 @@ docker-compose down
 ## 📦 Versionsgeschichte
 
 <!--VERSIONS:START-->
-<!-- Wird automatisch von GitHub Actions befüllt. Nicht manuell bearbeiten. -->
-<!--VERSIONS:END-->
+* Merge pull request #1 from mgruene/codex/create-github-actions-workflow-for-update-readme (e18ca77)<!--VERSIONS:END-->
