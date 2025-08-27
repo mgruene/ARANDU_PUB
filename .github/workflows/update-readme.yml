@@ -1,0 +1,37 @@
+name: Update README
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Collect commits
+        run: |
+          git log -n 5 --pretty=format:'* %s (%h)' > commits.txt
+
+      - name: Update README section
+        run: |
+          awk 'BEGIN{p=1} /<!--VERSIONS:START-->/ {print;system("cat commits.txt");p=0;next} /<!--VERSIONS:END-->/ {p=1} p' README.md > README.md.tmp
+          mv README.md.tmp README.md
+
+      - name: Commit changes
+        run: |
+          if git diff --quiet README.md; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "docs: update README versions"
+          git push

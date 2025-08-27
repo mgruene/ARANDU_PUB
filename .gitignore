@@ -7,6 +7,9 @@
 !.gitattributes
 !.env
 !docker-compose.yml
+!README.md
+!.github/
+!.github/**
 
 # ---- app_server (Quellcode) ----
 !app_server/
