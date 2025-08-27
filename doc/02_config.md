@@ -11,14 +11,8 @@ Alle Konfigurationen liegen unter `data/config/`.
     "uploads_dir": "data/uploads",
     "logs_dir": "data/logs"
   },
-  "chroma": {
-    "host": "chroma",
-    "port": 8000,
-    "api": "/api/v2"
-  },
-  "ollama": {
-    "base_url": "http://host.docker.internal:11434"
-  },
+  "chroma": {"host": "chroma", "port": 8000, "api": "/api/v2"},
+  "ollama": {"base_url": "http://host.docker.internal:11434"},
   "ui": {"default_top_k": 5},
   "features": {"rubrics": true}
 }
@@ -35,11 +29,7 @@ Alle Konfigurationen liegen unter `data/config/`.
     {"alias": "llama3.1:8b", "provider": "ollama",
      "model": "llama3.1:8b", "params": {"temperature": 0.2, "max_tokens": 1024}}
   ],
-  "retrieval": {
-    "default_collection": "theses_v1",
-    "top_k_default": 5,
-    "max_context_chars": 8000
-  }
+  "retrieval": {"default_collection": "theses_v1", "top_k_default": 5, "max_context_chars": 8000}
 }
 ```
 

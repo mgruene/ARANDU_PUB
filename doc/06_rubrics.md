@@ -3,16 +3,13 @@
 ## Admin (Seite 06)
 - CRUD für Rubriken (`id`, `name`, `description`, `llm_alias`, `top_k`).
 - Subkategorien (`id`, `name`, `description`).
-- Beispiele mit Label (`positive`/`negative`) und **Quelle**:
+- Beispiele (Label `positive|negative`) inkl. Quelle:
 ```json
-{"rubric_id": "methodik", "label":"positive",
- "text": "Beispielauszug ...",
- "source": {"doc_id": "68adadb7c191", "chunk_id": "c-00042"}}
+{"rubric_id":"methodik","label":"positive","text":"Auszug ...","source":{"doc_id":"<docid>","chunk_id":"c-00042"}}
 ```
-- **Doc-ID** standardmäßig aus `current_thesis.json` vorbelegt.
+- **Doc-ID** nach Möglichkeit aus `current_thesis.json` vorbelegen.
 
 ## Rubrik-Fragen (Seite 07)
-- Pflicht: `current_thesis` existiert → Doc-ID setzen.
-- Retrieval **mit docid-Filter** (`where={"docid": <doc_id>}`).
-- `evaluate_rubric_question(...)` erhält `question`, `rubric_id`, optional `subcategory_id`, `top_k`.
-- Antwort + Belege/Diagnose anzeigen.
+- Erfordert gesetzte **aktuelle Arbeit** (`current_thesis.json`).
+- **DocID-gefiltertes** Retrieval (siehe **07_retrieval_and_llm.md**).
+- `evaluate_rubric_question(...)` erhält `rubric_id`, optional `subcategory_id`, `question`, optional `top_k`.
