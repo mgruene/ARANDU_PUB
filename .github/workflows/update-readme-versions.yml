@@ -1,0 +1,58 @@
+name: Update README Versions
+
+on:
+  push:
+    tags:
+      - '*'
+  workflow_dispatch: {}
+  schedule:
+    - cron: '0 5 * * 1'  # optional: montags 05:00 UTC
+
+permissions:
+  contents: write
+
+jobs:
+  update-readme:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout (mit Tags)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Render versions table
+        run: |
+          bash scripts/render_versions.sh 15
+
+      - name: Replace section in README
+        shell: bash
+        run: |
+          START="<!--VERSIONS:START-->"
+          END="<!--VERSIONS:END-->"
+          awk -v start="$START" -v end="$END" -v file="/tmp/versions.md" '
+            BEGIN{printed=0}
+            {
+              if ($0 ~ start) { print; system("cat " file); skip=1; next }
+              if ($0 ~ end)   { skip=0; printed=1 }
+              if (!skip) print
+            }
+            END{
+              if (!printed) {
+                print "Fehlende Marker in README.md" > "/dev/stderr"; exit 1
+              }
+            }
+          ' README.md > README.md.new
+          mv README.md.new README.md
+
+      - name: Commit & push
+        shell: bash
+        run: |
+          if git diff --quiet; then
+            echo "No README changes."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add README.md
+          git commit -m "docs(readme): update versions section"
+          git push
