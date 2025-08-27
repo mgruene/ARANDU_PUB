@@ -79,3 +79,16 @@ scripts/
 !data/chroma/.gitkeep
 !data/logs/.gitkeep
 !data/uploads/.gitkeep
+
+# ---- ARANDU: Zusätzliche Ausnahmen (Rubriken-Feature) ----
+# 1) Alle Projektdokumente einchecken
+!doc/
+!doc/**
+
+# 2) Alle Konfigurationen unter data/config einchecken ...
+!data/config/
+!data/config/**
+
+#    ... aber examiners.json explizit weiterhin ignorieren
+data/config/examiners.json
+
