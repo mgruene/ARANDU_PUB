@@ -1,0 +1,61 @@
+{
+  "version": 1,
+  "updated_at": "2025-08-27T00:00:00Z",
+  "defaults": { "llm_alias": "critique-llm", "top_k": 6, "max_context_chars": 8000 },
+  "rubrics": [
+    {
+      "id": "content",
+      "name": "Inhalt",
+      "description": "Inhaltliche Qualität der Arbeit (Fragestellung, Theorie, Methode, Analyse, Fazit).",
+      "llm_alias": "critique-llm",
+      "top_k": 6,
+      "children": [
+        { "id": "content_problem", "name": "Fragestellung & Zielsetzung",
+          "description": "Problem/These, Relevanz, Zielklarheit, Vorgehensplan.", "top_k": 5 },
+        { "id": "content_theory", "name": "Theorie & Literatur",
+          "description": "Stand der Forschung, Quellenqualität, theoretische Fundierung.", "top_k": 6 },
+        { "id": "content_method", "name": "Methode/Analyse & Fazit",
+          "description": "Methodik/Vorgehen, Analyse, Schlussfolgerungen, Implikationen.", "top_k": 6 }
+      ]
+    },
+    {
+      "id": "form",
+      "name": "Formalia",
+      "description": "Formale Qualität (Aufbau, Stil, Zitation, Layout).",
+      "llm_alias": "style-llm",
+      "top_k": 4,
+      "children": [
+        { "id": "form_structure", "name": "Struktur & Verständlichkeit",
+          "description": "Gliederung, roter Faden, Leseführung.", "top_k": 4 },
+        { "id": "form_citation", "name": "Zitation & Quellen",
+          "description": "Belege, Konsistenz, Aktualität/Qualität der Quellen.", "top_k": 3 },
+        { "id": "form_language", "name": "Sprache & Formalia",
+          "description": "Stil, Rechtschreibung/Grammatik, Abbildungen/Tabellen.", "top_k": 3 }
+      ]
+    },
+    {
+      "id": "autonomy",
+      "name": "Eigenständigkeit",
+      "description": "Originalität und Arbeitsweise.",
+      "children": [
+        { "id": "autonomy_originality", "name": "Originalität",
+          "description": "Eigenständige Ideen, kritische Perspektive, Beitrag." },
+        { "id": "autonomy_process", "name": "Prozessfaktoren",
+          "description": "Umgang mit Feedback, Termin-/Selbstorganisation." }
+      ]
+    },
+    {
+      "id": "presentation",
+      "name": "Vortrag (optional)",
+      "description": "Bewertung einer begleitenden Präsentation.",
+      "children": [
+        { "id": "pres_content", "name": "Inhaltliche Darstellung",
+          "description": "Sachliche Richtigkeit, Schwerpunktsetzung." },
+        { "id": "pres_delivery", "name": "Sprache & Auftreten",
+          "description": "Verständlichkeit, Stimme, Blickkontakt, Sprechweise." },
+        { "id": "pres_slides", "name": "Folien & Zeit",
+          "description": "Visualisierung, Struktur, Zeitmanagement." }
+      ]
+    }
+  ]
+}
