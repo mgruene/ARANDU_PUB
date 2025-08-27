@@ -1,6 +1,7 @@
 # 1) Alles ignorieren
 *
 
+!README.md
 # 2) Basisdateien/Metadaten zulassen
 !.gitignore
 !.gitattributes
