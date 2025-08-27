@@ -1,68 +1,84 @@
-# 1) Alles ignorieren
+########################################
+# ARANDU – .gitignore (bereinigt)
+# Prinzip: Erst ALLES ignorieren, dann gezielt whitelisten.
+########################################
+
+# 0) Standard: alles ignorieren
 *
 
-!README.md
-# 2) Basisdateien/Metadaten zulassen
+########################################
+# 1) Basis-/Meta-Dateien zulassen
+########################################
 !.gitignore
 !.gitattributes
 !.env
-!docker-compose.yml
 !README.md
+!docker-compose.yml
 !.github/
 !.github/**
 
-# ---- app_server (Quellcode) ----
+########################################
+# 2) Quellcode: app_server zulassen (ohne Caches/Backups)
+########################################
 !app_server/
 !app_server/**
 
-# Ausschlüsse innerhalb app_server
+# Ausschlüsse innerhalb app_server (Caches/Backups/Sonderfälle)
 app_server/**/__pycache__/
 app_server/**/*.pyc
 app_server/**/*.pyo
 app_server/**/*.pyd
 app_server/**/*.bak
 app_server/**/.gitignore
-app_server/app/modules/llm_client.py
-app_server/app/modules/__pycache__/
-app_server/app/services/__pycache__/
-app_server/app/ui/**/__pycache__/
 
-# ---- chroma (nur Dockerfile) ----
+########################################
+# 3) Chroma-Build-Kontext: nur Dockerfile
+########################################
 !chroma/
 !chroma/Dockerfile
+# restliche Inhalte unter chroma NICHT einchecken
 chroma/**
 
-# ---- Root-Python-Dateien, die rein sollen ----
-!chunk_ops.py
-!embedding_facade.py
-!receipt_facade.py
-
-# ---- data ----
+########################################
+# 4) Datenbasis: nur definierte Bereiche
+########################################
 !data/
 
-# 3a) data/config erlauben, aber examiners.json ausschließen
+# 4a) Konfigurationen zulassen (aber examiners.json ausnehmen)
 !data/config/
 !data/config/**
 data/config/examiners.json
 
-# 3b) data/design komplett erlauben
+# 4b) Design zulassen
 !data/design/
 !data/design/**
 
-# 3c) Nur Verzeichnisnamen für app_state, chroma, logs, uploads
+# 4c) Laufzeitordner: nur Verzeichnis sichtbar halten, Inhalte ignorieren
 !data/app_state/
 data/app_state/**
+!data/app_state/.gitkeep
 
 !data/chroma/
 data/chroma/**
+!data/chroma/.gitkeep
 
 !data/logs/
 data/logs/**
+!data/logs/.gitkeep
 
 !data/uploads/
 data/uploads/**
+!data/uploads/.gitkeep
 
-# 4) Global nicht einchecken
+########################################
+# 5) Projektdokumentation zulassen
+########################################
+!doc/
+!doc/**
+
+########################################
+# 6) Global nicht einchecken (Fallback)
+########################################
 __pycache__/
 *.pyc
 *.pyo
@@ -72,27 +88,10 @@ __pycache__/
 *.tmp
 *.log
 
-# 5) explizit NICHT einchecken
+########################################
+# 7) Weitere explizite Nicht-Repo-Inhalte
+########################################
 Makefile
 scripts/
 .gitattributes~
 .gitignore~
-
-# Ordnernamen sichtbar halten (nur .gitkeep erlauben)
-!data/app_state/.gitkeep
-!data/chroma/.gitkeep
-!data/logs/.gitkeep
-!data/uploads/.gitkeep
-
-# ---- ARANDU: Zusätzliche Ausnahmen (Rubriken-Feature) ----
-# 1) Alle Projektdokumente einchecken
-!doc/
-!doc/**
-
-# 2) Alle Konfigurationen unter data/config einchecken ...
-!data/config/
-!data/config/**
-
-#    ... aber examiners.json explizit weiterhin ignorieren
-data/config/examiners.json
-
