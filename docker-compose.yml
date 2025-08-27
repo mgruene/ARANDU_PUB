@@ -30,7 +30,7 @@ services:
       - "host.docker.internal:host-gateway"
     environment:
       PYTHONPATH: "/code"
-      ARANDU_CFG_DIR: "/code/data/config"
+      ARANDU_CFG_DIR: "config"
       HF_HUB_DISABLE_TELEMETRY: "1"
       TOKENIZERS_PARALLELISM: "false"
       OTEL_SDK_DISABLED: "true"
@@ -39,6 +39,7 @@ services:
     volumes:
       - ./app_server:/code:ro
       - ./data:/code/data:rw
+      - ./data:/data:rw
     ports:
       - "127.0.0.1:8501:8501"
     command: >

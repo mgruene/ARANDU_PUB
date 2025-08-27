@@ -1,28 +1,188 @@
 {
   "embeddings": [
-    { "alias": "jina-de",    "provider": "ollama", "model": "jina/jina-embeddings-v2-base-de:latest", "dim": 768,  "normalize": true },
-    { "alias": "nomic",      "provider": "ollama", "model": "nomic-embed-text:latest",                "dim": 768,  "normalize": true },
-    { "alias": "mxbai-large","provider": "ollama", "model": "mxbai-embed-large:latest",               "dim": 1024, "normalize": true }
+    {
+      "alias": "jina-de",
+      "provider": "ollama",
+      "model": "jina/jina-embeddings-v2-base-de:latest",
+      "dim": 768,
+      "normalize": true,
+      "usage": "embedding",
+      "type": "embedding",
+      "notes": "Deutsches Embedding (v2)."
+    },
+    {
+      "alias": "nomic",
+      "provider": "ollama",
+      "model": "nomic-embed-text:latest",
+      "dim": 768,
+      "normalize": true,
+      "usage": "embedding",
+      "type": "embedding",
+      "notes": "Allgemeines Text-Embedding."
+    },
+    {
+      "alias": "mxbai-large",
+      "provider": "ollama",
+      "model": "mxbai-embed-large:latest",
+      "dim": 1024,
+      "normalize": true,
+      "usage": "embedding",
+      "type": "embedding",
+      "notes": "Großes Embedding (höhere Dimensionalität)."
+    }
   ],
+
   "llms": [
-    { "alias": "llama3-instruct",      "provider": "ollama", "model": "llama3:instruct",      "params": { "temperature": 0.1, "num_ctx": 8192 } },
-    { "alias": "qwen2.5-7b-instruct",  "provider": "ollama", "model": "qwen2.5:7b-instruct",  "params": { "temperature": 0.1, "num_ctx": 8192 } }
+    {
+      "alias": "chat-qwen2.5-7b",
+      "provider": "ollama",
+      "model": "qwen2.5:7b-instruct",
+      "usage": "llm",
+      "type": "chat",
+      "supports_rubrics": true,
+      "context_window": 4096,
+      "params": { "temperature": 0.2, "top_p": 0.9, "num_ctx": 4096 },
+      "notes": "Starker Allrounder; gut für Bewertungstexte."
+    },
+    {
+      "alias": "chat-llama3-instruct",
+      "provider": "ollama",
+      "model": "llama3:instruct",
+      "usage": "llm",
+      "type": "chat",
+      "supports_rubrics": true,
+      "context_window": 8192,
+      "params": { "temperature": 0.2, "top_p": 0.9, "num_ctx": 8192 },
+      "notes": "Meta Llama3 instruct."
+    },
+    {
+      "alias": "chat-mistral",
+      "provider": "ollama",
+      "model": "mistral:latest",
+      "usage": "llm",
+      "type": "chat",
+      "supports_rubrics": true,
+      "context_window": 4096,
+      "params": { "temperature": 0.2, "top_p": 0.9, "num_ctx": 4096 },
+      "notes": "Mistral general."
+    },
+    {
+      "alias": "chat-llama2",
+      "provider": "ollama",
+      "model": "llama2:latest",
+      "usage": "llm",
+      "type": "chat",
+      "supports_rubrics": true,
+      "context_window": 4096,
+      "params": { "temperature": 0.2, "top_p": 0.9, "num_ctx": 4096 },
+      "notes": "Llama2; solide, aber älter."
+    },
+    {
+      "alias": "chat-openeu-12b",
+      "provider": "ollama",
+      "model": "jobautomation/OpenEuroLLM-German:latest",
+      "usage": "llm",
+      "type": "chat",
+      "supports_rubrics": true,
+      "context_window": 4096,
+      "params": { "temperature": 0.2, "top_p": 0.9, "num_ctx": 4096 },
+      "notes": "Deutsch fokussiert (12B); groß."
+    },
+    {
+      "alias": "chat-llama3-latest",
+      "provider": "ollama",
+      "model": "llama3:latest",
+      "usage": "llm",
+      "type": "chat",
+      "supports_rubrics": true,
+      "context_window": 8192,
+      "params": { "temperature": 0.2, "top_p": 0.9, "num_ctx": 8192 },
+      "notes": "Llama3 general latest."
+    },
+    {
+      "alias": "chat-sauerkraut-12b",
+      "provider": "ollama",
+      "model": "hf.co/tensorblock/SauerkrautLM-Nemo-12b-Instruct-GGUF:Q4_K_M",
+      "usage": "llm",
+      "type": "chat",
+      "supports_rubrics": false,
+      "context_window": 4096,
+      "params": { "temperature": 0.2, "top_p": 0.9, "num_ctx": 4096 },
+      "notes": "Groß/experimentell – zunächst deaktiviert."
+    },
+    {
+      "alias": "chat-llama3.2-3b",
+      "provider": "ollama",
+      "model": "llama3.2:3b",
+      "usage": "llm",
+      "type": "chat",
+      "supports_rubrics": false,
+      "context_window": 4096,
+      "params": { "temperature": 0.2, "top_p": 0.9, "num_ctx": 4096 },
+      "notes": "Kleines Modell; erst prüfen."
+    },
+    {
+      "alias": "chat-mistral-7b-instruct",
+      "provider": "ollama",
+      "model": "mistral:7b-instruct",
+      "usage": "llm",
+      "type": "chat",
+      "supports_rubrics": true,
+      "context_window": 4096,
+      "params": { "temperature": 0.2, "top_p": 0.9, "num_ctx": 4096 },
+      "notes": "Mistral Instruct (7B)."
+    },
+    {
+      "alias": "chat-leo-mistral-de",
+      "provider": "ollama",
+      "model": "hf.co/TheBloke/em_german_leo_mistral-GGUF:Q4_K_M",
+      "usage": "llm",
+      "type": "chat",
+      "supports_rubrics": true,
+      "context_window": 4096,
+      "params": { "temperature": 0.2, "top_p": 0.9, "num_ctx": 4096 },
+      "notes": "Deutsche Mistral-Variante."
+    },
+    {
+      "alias": "chat-gemma3-1b",
+      "provider": "ollama",
+      "model": "gemma3:1b",
+      "usage": "llm",
+      "type": "chat",
+      "supports_rubrics": false,
+      "context_window": 2048,
+      "params": { "temperature": 0.2, "top_p": 0.9, "num_ctx": 2048 },
+      "notes": "Sehr klein; nicht empfehlenswert für Rubriken."
+    },
+    {
+      "alias": "chat-llama3.2-1b",
+      "provider": "ollama",
+      "model": "llama3.2:1b",
+      "usage": "llm",
+      "type": "chat",
+      "supports_rubrics": false,
+      "context_window": 2048,
+      "params": { "temperature": 0.2, "top_p": 0.9, "num_ctx": 2048 },
+      "notes": "Sehr klein; nur Test."
+    },
+    {
+      "alias": "chat-llama3.2-latest",
+      "provider": "ollama",
+      "model": "llama3.2:latest",
+      "usage": "llm",
+      "type": "chat",
+      "supports_rubrics": false,
+      "context_window": 4096,
+      "params": { "temperature": 0.2, "top_p": 0.9, "num_ctx": 4096 },
+      "notes": "3.2-Reihe (multi-modal Varianten möglich) – vorerst deaktiviert."
+    }
   ],
+
   "retrieval": {
-    "default_collection": "bachelor",
-    "top_k_default": 5,
-    "max_context_chars": 12000,
+    "default_collection": "theses_v1",
     "embedding_alias_default": "jina-de",
-
-    "child_chunk_size": 1200,
-    "child_chunk_overlap": 200,
-
-    "parent_group_size": 3,
-    "parent_group_overlap": 1,
-
-    "max_chars_per_embedding": 2000,
-    "embedding_agg": "mean",
-
-    "embedding_alias_fallbacks": ["nomic", "mxbai-large"]
+    "embedding_alias_fallbacks": ["nomic", "mxbai-large"],
+    "top_k_default": 5,
+    "max_context_chars": 8000
   }
 }

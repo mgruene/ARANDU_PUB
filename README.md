@@ -46,8 +46,3 @@ Stoppen:
 ``` bash
 docker-compose down
 ```
-
-## 📦 Versionsgeschichte
-
-<!--VERSIONS:START-->
-* publish: 2025-08-27T15:18:32+02:00 (4f442ef)* sync mit online-change an README.md (d81bc91)* Merge pull request #1 from mgruene/codex/create-github-actions-workflow-for-update-readme (e18ca77)<!--VERSIONS:END-->
