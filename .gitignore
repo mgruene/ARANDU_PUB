@@ -95,3 +95,17 @@ Makefile
 scripts/
 .gitattributes~
 .gitignore~
+
+########################################
+# 8) Lokale Entwicklungsumgebungen  
+########################################
+
+venv/
+.venv
+
+########################################
+# 9) zusätzliche Dateien, die nicht ins Repo sollen
+########################################
+
+A_Beispielarbeiten
+A_Sonstiges
