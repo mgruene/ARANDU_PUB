@@ -1,16 +1,17 @@
-# Zustands- & Header-Logik
+# State & Header‑Darstellung
 
-## Dateien unter `data/app_state/`
-- `ingest_doc_<docid>.json` – Quittung je Arbeit
-- `ingests_index.json` – Index aller Ingests
-- `current_thesis.json` – aktuell ausgewählte Arbeit
+## App‑State
+- `data/app_state/current_thesis.json`: aktive Arbeit (inkl. `docid`, `metadata`)
+- `data/app_state/ingest_doc_<docid>.json`: Quittungen für Ingest
+- Zugriff via `StateFacade` (liest/schreibt Verzeichnis aus `app_config.paths.app_state_dir`)
 
-## Lesen/Schreiben (State-Fassade)
-- `get_current() -> dict|None`
-- `set_current(docid: str) -> str`
+## Header‑Block (einheitlich)
+Seiten **02_select_thesis**, **03_ask_thesis**, **07_rubric_eval** verwenden denselben Headerstil:
+- Kopf: **Studierende/r**, **Titel**
+- darunter ein **Expander** „Metadaten der Arbeit“ mit:
+  - `docid`
+  - Arbeitstyp, Abgabedatum
+  - Erst-/Zweitprüfer
+  - Studiengang
 
-Atomare JSON-Writes, strukturierte Logs.
-
-## Header/Topbar
-- `app_server/app/ui/components/topbar.py` zeigt Status/Metadaten-Expander; liest on render den State.
-- Bei fehlender Auswahl: Hinweis im Header.
+> Ziel: konsistente Orientierung & Kontext für alle Interaktionen.

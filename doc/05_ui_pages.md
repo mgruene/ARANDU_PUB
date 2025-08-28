@@ -1,15 +1,33 @@
-# UI-Seiten & Verantwortlichkeiten (tatsächlicher Stand)
+# UI‑Seiten
 
-> Quelle: `app_server/app/ui/pages/`
+## 01 – Upload & Ingest
+- Upload PDF → **Metadaten‑Preview** (Regex‑Extraktion, Fallback LLM nur für fehlende Felder)
+- Manuelle Korrekturen möglich, ohne unvollständige Metadaten kein Ingest
+- Chunking (konfigurierbar) → Embeddings → Chroma Upsert → Receipt
 
-| Datei | Seite | Zweck | Datenabhängigkeiten |
-|---|---:|---|---|
-| `01_upload_ingest.py` | 01 | **Upload & Ingest**: PDF-Upload, Metadaten-Preview/-Bearbeitung, Chunking & Upsert nach Chroma, Quittung/Index | `app_config`, `examiners.json`, `model_config.json`, `uploads_dir`, `state_facade`, `ingest_facade`, `metadata_facade` |
-| `02_select_thesis.py` | 02 | **Arbeit auswählen**: Quittungen/Index lesen, Auswahl persistieren | `ingest_doc_*.json`, `ingests_index.json`, schreibt `current_thesis.json` |
-| `03_ask_thesis.py` | 03 | **Freitextfragen** gegen die **aktuelle Arbeit** | liest `current_thesis.json`, Retrieval (Chroma) |
-| `06_admin_rubrics.py` | 06 | **Rubriken-Admin**: Rubriken/Subkategorien/Beispiele (CRUD); Doc-ID bei Beispielen sinnvollerweise aus State vorbelegen | optional `current_thesis.json`, `rubrics_facade`, `rubric_examples_facade` |
-| `07_rubric_eval.py` | 07 | **Rubrik-Fragen**: Abfragen mit docid-Filter | **muss** `current_thesis.json` lesen, Retrieval (Chroma), `rubric_eval_service` |
+## 02 – Arbeit auswählen
+- Listet vorhandene **Receipts** (`data/app_state/…`) und prüft Existenz in Chroma
+- Auswahl schreibt `current_thesis.json`
 
-## Nicht vorhanden (Stand heute)
-- **04** – separater *Metadata Review*-Screen: Funktion in **Seite 01** integriert.
-- **05** – separater *Chunk & Upsert*-Screen: Funktion in **Seite 01** integriert.
+## 03 – Freie Fragen (ask_thesis)
+- docid‑gefilterte Chroma‑Suche
+- Kontexttrimmen gemäß `retrieval.max_context_chars`
+- Antwort via LLM (aus UI wählbar)
+
+## 06 – Rubriken verwalten (admin_rubrics)
+- **Mittiges Layout**, Tabelle mit Spalten: Nummer, ID, Name, Beschreibung, LLM‑Alias, top_k, Kinder
+- **Nummerierung** automatisch: 1 / 1.1 / 1.1.1
+- **Regeln**: max. **3 Ebenen**, pro Knoten **max. 2** Kinder
+- **CRUD**: Anlegen, Bearbeiten, Löschen, Verschieben (↑/↓)
+- **LLM‑Alias**: Dropdown aus `model_config.json` (nur `llms` mit `supports_rubrics=true`)
+- Speichert **nur den Alias** in `rubrics_config.json`
+- Typische Fehlerquellen:
+  - Gemischte Typen (z.B. `top_k` int/leer) → Tabelle castet auf String (behoben)
+  - `use_container_width` → ersetzt durch `width="stretch"`
+
+## 07 – Rubrik‑Evaluierung (rubric_eval)
+- Header analog **ask_thesis**
+- Auswahl: Rubrik, optionale Unterkategorie, Frage, Top‑K
+- **Retrieval**: docid‑Filter (nur die aktive Arbeit), Embedding aus `retrieval.embedding_alias_default`
+- Antwort via `rubric_eval_service.evaluate_rubric_question`
+- Robust: UI zeigt Fehlerpanels (kein „weißes“ Rendering)
